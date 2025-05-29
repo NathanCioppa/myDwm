@@ -778,7 +778,7 @@ enternotify(XEvent *e)
 
 	if ((ev->mode != NotifyNormal || ev->detail == NotifyInferior) && ev->window != root)
        return;
-    
+
 	c = wintoclient(ev->window);
 	m = c ? c->mon : wintomon(ev->window);
 	if (m != selmon) {
@@ -1723,20 +1723,20 @@ tile(Monitor *m)
 		return;
 
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? (m->ww * m->mfact) : 0;
 	else
 		mw = m->ww;
-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = my = ty  = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c);
+			resize(c, m->wx + margin, m->wy + my + margin, mw - (2*c->bw) - margin, h - (2*c->bw) - margin*2, 0);
+			if (my + HEIGHT(c) + margin*2 < m->wh)
+				my += HEIGHT(c) + margin;
 		} else {
 			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c);
+			resize(c, m->wx + mw + margin, m->wy + ty + margin, m->ww - mw - (2*c->bw) - margin*2 , h - (2*c->bw) - margin *2, 0);
+			if (ty + HEIGHT(c) + margin*2 < m->wh)
+				ty += HEIGHT(c) + margin;
 		}
 }
 
