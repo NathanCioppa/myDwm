@@ -251,8 +251,8 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 		if (w < lpad)
 			return x + w;
 		d = XftDrawCreate(drw->dpy, drw->drawable,
-		                  DefaultVisual(drw->dpy, drw->screen),
-		                  DefaultColormap(drw->dpy, drw->screen));
+	                  DefaultVisual(drw->dpy, drw->screen),
+	                  DefaultColormap(drw->dpy, drw->screen));
 		x += lpad;
 		w -= lpad;
 	}

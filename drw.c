@@ -255,6 +255,7 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 		if (w < lpad)
 			return x + w;
 		d = XftDrawCreate(drw->dpy, drw->drawable, drw->visual, drw->cmap);
+
 		x += lpad;
 		w -= lpad;
 	}

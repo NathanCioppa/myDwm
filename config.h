@@ -75,6 +75,10 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 
 static const char *dmenuBluetooth[] = { "dmenu_bluetooth", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
 
+static const char *volumeUp[] = { "volumeUp", "5", NULL };
+static const char *volumeUpFine[] = { "volumeUp", "1", NULL };
+static const char *volumeDown[] = { "volumeDown", "5", NULL };
+static const char *volumeDownFine[] = { "volumeDown", "1", NULL };
 
 static const char *termcmd[]  = { "st", NULL };
 
@@ -99,8 +103,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_minus,      view,       {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_minus,      tag,        {.ui = ~0 } },
+	//{ MODKEY,                       XK_minus,      view,       {.ui = ~0 } },
+	//{ MODKEY|ShiftMask,             XK_minus,      tag,        {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
@@ -116,6 +120,11 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      8)
 	TAGKEYS(                        XK_9,                      9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+	{MODKEY,			XK_equal,  spawn,	   {.v = volumeUp } },
+	{MODKEY|ShiftMask,		XK_equal,  spawn,	   {.v = volumeUpFine } },
+	{MODKEY,			XK_minus,  spawn,	   {.v = volumeDown } },
+	{MODKEY|ShiftMask,		XK_minus,  spawn,	   {.v = volumeDownFine } },
 };
 
 /* button definitions */

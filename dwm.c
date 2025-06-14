@@ -1108,11 +1108,12 @@ manage(Window w, XWindowAttributes *wa)
 // the master terminal / home screen is expected to be at monitor 0, tag 0
 // if there is more than one monitor, send new windows to the second monitor
 // if there is only one monitor, send new windows to tag 1 (unless they are meant to be on the homescreen)
-    if (strstr(ch.res_class, MasterTerminalChildClass)) {
-    	handleMasterTerminalRedirect(c);
-	} else if ( (!strstr(ch.res_class, HomeClass)) & (c->mon == mons) & (c->tags &    (1<<0)) ) {
-		c->tags = 1 << 1;
-	}
+    if (ch.res_class && strstr(ch.res_class, MasterTerminalChildClass)) {
+	handleMasterTerminalRedirect(c);
+    } else if (ch.res_class && !strstr(ch.res_class, HomeClass) &&
+        c->mon == mons && (c->tags & (1 << 0))) {
+	c->tags = 1 << 1;
+    }
 }
 
 void
