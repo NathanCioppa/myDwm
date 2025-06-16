@@ -2252,8 +2252,7 @@ handleMasterTerminalRedirect(Client *c){
 void
 dmenuSpawn(const Arg *arg) {
 	struct sigaction sa;
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
+	dmenumon[0] = '0' + selmon->num;
 
 	if (fork() == 0) {
 		if (dpy)
@@ -2264,33 +2263,16 @@ dmenuSpawn(const Arg *arg) {
 		sa.sa_flags = 0;
 		sa.sa_handler = SIG_DFL;
 		sigaction(SIGCHLD, &sa, NULL);
-
-		int i = 0;
-		while(((char **)arg->v)[i] != NULL) {
-			i++;
-		}
-		int commandLength = i;
-		i = 0;
-		while(dmenuOptions[i] != NULL) {
-			i++;
-		}
-		commandLength += i;
-		const char **command = malloc((commandLength + 1) * sizeof(char *));
-		i = 0;
-		while(((char **)arg->v)[i] != NULL) {
-			command[i] = ((char **)arg->v)[i];
-			i++;
-		}
-		int j = 0;
-		while(dmenuOptions[j] != NULL) {
-			command[i] = dmenuOptions[j];
-			j++;
-			i++;
-		}
-		command[commandLength] = NULL;
+		
+		const char **command = merge((const char **)arg->v, dmenuOptions);
+		if (!command)
+			die("dwm: failed to allocate memory for command\n");
 		
 		execvp(command[0], (char **)command);
-		die("dwm: execvp '%s' failed:", command[0]);
+		
+		const char *cmd = command[0];
+    		free(command);
+    		die("dwm: execvp '%s' failed:", cmd);
 	}
 }
 

@@ -1,4 +1,3 @@
-/* See LICENSE file for copyright and license details. */
 
 #define MAX(A, B)               ((A) > (B) ? (A) : (B))
 #define MIN(A, B)               ((A) < (B) ? (A) : (B))
@@ -7,3 +6,4 @@
 
 void die(const char *fmt, ...);
 void *ecalloc(size_t nmemb, size_t size);
+const char **merge(const char **arr1, const char **arr2);
