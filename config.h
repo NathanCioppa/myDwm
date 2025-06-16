@@ -69,12 +69,20 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenuOptions[] = { "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
 
 static const char *dmenuBluetooth[] = { "dmenu_bluetooth", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
+
+static const char *dmenuUtilities[] = { "dmenu_map", "utilities", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
+
+static const char *dmenuGames[] = { "dmenu_map", "games", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray2, NULL };
+
+static const char *Magi[] = {"dmenu_map", "utilities", NULL};
 
 static const char *volumeUp[] = { "volumeUp", "5", NULL };
 static const char *volumeUpFine[] = { "volumeUp", "1", NULL };
@@ -86,8 +94,11 @@ static const char *termcmd[]  = { "st", NULL };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = dmenuBluetooth } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = dmenuBluetooth } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = dmenuUtilities } },
+	{ MODKEY,                       XK_g,      spawn,          {.v = dmenuGames } },
+	{ MODKEY|ShiftMask,                       XK_g,      dmenuSpawn,          {.v = Magi } },
 	{ SUPERKEY,                       XK_b,      togglebar,      {0} },
 	{ SUPERKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ SUPERKEY,                       XK_k,      focusstack,     {.i = -1 } },
